@@ -159,3 +159,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 .vscode
+.atl/
+oci_config
+oci_api_private_key.pem
+images_list.json
+oci.env

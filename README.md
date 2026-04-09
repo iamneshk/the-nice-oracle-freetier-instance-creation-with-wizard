@@ -34,7 +34,7 @@ In short, this script is another way to bypass the "Out of host capacity" or "Ou
 
 ## Setup
 
-1. SSH into the VM.Standard.E2.1.Micro Ubuntu machine, clone this repository, and navigate to the project directory. Change the permissions of `setup_init.sh` to make it executable.
+1. SSH into the VM.Standard.E2.1.Micro Ubuntu machine, clone this repository, and navigate to the project directory. Change the permissions of `run.sh` to make it executable.
     ```bash
     git clone https://github.com/mohankumarpaluru/oracle-freetier-instance-creation.git
     cd oracle-freetier-instance-creation
@@ -48,10 +48,10 @@ In short, this script is another way to bypass the "Out of host capacity" or "Ou
 
 5. Edit the **`oci.env`** file and fill in the necessary details. Refer [below for more information](https://github.com/mohankumarpaluru/oracle-freetier-instance-creation#environment-variables) `oci.env` fields.
 
-	You can also use run the `setup_env.sh` script to interactively generate the `oci.env` file with your desired configuration:
+    You can also run the interactive wizard to generate the `oci.env` file with your desired configuration:
 
     ```bash
-    ./setup_env.sh
+    ./run.sh wizard
     ```
 
     This script will guide you through the process of configuring your instance settings, including the instance name, compute shape, optional Gmail notifications, and more.
@@ -62,9 +62,9 @@ In short, this script is another way to bypass the "Out of host capacity" or "Ou
 
 ## Run
 
-Once the setup is complete, run the `setup_init.sh` script from the project directory. This script installs the required dependencies and starts the Python program in the background.
+Once the setup is complete, run the `run.sh` script from the project directory.
 ```bash
-./setup_init.sh
+./run.sh launch
 ```
 If you are running in a fresh `VM.Standard.E2.1.Micro` instance, you might receive a prompt *Daemons using outdated libraries*. Just click `OK`; that's due to updating the libraries through apt update and won't be asked again.
 
@@ -74,15 +74,15 @@ The script will display an error prompt if an issue arises; otherwise, it will s
 
 View the logs of the instance creation API call in `launch_instance.log` and details about the parameters used (availability-domain, compartment-id, subnet-id, image-id) in `setup_and_info.log`.
 
-## Errors and Re-Run
+## Errors and Retry
 
 If the `oci_config` file is found to be incorrect, the script generates an `ERROR_IN_CONFIG.log` file. Verify the `oci_config` for accuracy, ensuring it aligns with the [sample_oci_config](https://github.com/mohankumarpaluru/oracle-freetier-instance-creation/blob/85b3ec065a91bb66206933a12a6bd58941446118/sample_oci_config#L1C1-L6C80) without any additional lines or characters.
 
 
-In case of an unhandled exception leading to script termination, an email containing the logs is sent if opted. Otherwise, only the error logs are printed to `UNHANDLED_ERROR.log`. Review the logs and execute the script again using the following command (which skips dependency installation). If the issue persists, raise an issue with the contents of `UNHANDLED_ERROR.log`.
+In case of an unhandled exception leading to script termination, an email containing the logs is sent if opted. Otherwise, only the error logs are printed to `UNHANDLED_ERROR.log`. Review the logs and execute the launch again using the following command. If the issue persists, raise an issue with the contents of `UNHANDLED_ERROR.log`.
 
 ```bash
-./setup_init.sh rerun
+./run.sh launch
 ```
 
 ## OCI Instance Creation Flow
