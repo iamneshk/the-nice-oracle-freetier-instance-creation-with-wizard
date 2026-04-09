@@ -30,6 +30,9 @@ else
     source .venv/bin/activate
 fi
 
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements.txt
+
 python3 main.py "$@"
 
 deactivate
